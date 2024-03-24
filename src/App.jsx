@@ -1,8 +1,8 @@
 import { React, useState } from 'react';
 
 import './App.css';
-import { PromptForm } from './PromptForm';
-import { User } from './model_user';
+import { Chat } from './features/Chat/Chat.tsx';
+import { AppBar, Toolbar, Button } from '@mui/material';
 
 export const App = () => {
   const [greeting, setGreeting] = useState(true);
@@ -15,16 +15,22 @@ export const App = () => {
     childInterest: 'Drawing, Running, Hide and Seek',
   };
 
-  const current_user = User(mock_user);
+  const current_user = mock_user;
   return (
     <>
+      <AppBar position='static'>
+        <Toolbar>
+          <Button color='inherit'>Account Info</Button>
+          <Button color='inherit'>Collection</Button>
+        </Toolbar>
+      </AppBar>
       {greeting && (
         <p>
           Hello there {current_user.userName}! I can help you find some fun
           activities for {current_user.childName}. Just start typing...
         </p>
       )}
-      <PromptForm />
+      <Chat />
     </>
   );
 };
