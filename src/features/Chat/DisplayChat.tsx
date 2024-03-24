@@ -1,5 +1,13 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from '@mui/material';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import { chatAPIResponse } from '../../model/chat';
 
 export const DisplayChat: React.FC<chatAPIResponse> = ({
@@ -16,13 +24,16 @@ export const DisplayChat: React.FC<chatAPIResponse> = ({
         }}
       >
         <Typography variant='body1'>{text}</Typography>
-        <ul>
+        <List disablePadding>
           {activities_list.map((activities_list, index) => (
-            <Typography component='li' variant='body1' key={index}>
-              {activities_list.title}
-            </Typography>
+            <ListItem>
+              <IconButton edge='end' aria-label='delete'>
+                <BookmarksIcon />
+              </IconButton>
+              <ListItemText primary={activities_list.title} />
+            </ListItem>
           ))}
-        </ul>
+        </List>
       </Box>
     </div>
   );
