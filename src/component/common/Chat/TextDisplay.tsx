@@ -9,18 +9,18 @@ export const TextDisplay = ({ text }: { text: string }) => {
     <>
       <Box
         sx={{
-          width: '100%',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           whiteSpace: 'normal',
+          p: 2,
         }}
       >
         <ListItemText
           primaryTypographyProps={{ noWrap: textWrapper }}
           primary={text}
           onClick={() => setTextWrapper(!textWrapper)}
-          sx={{ width: '800px' }}
+          sx={{ width: '55%' }}
         />
       </Box>
     </>

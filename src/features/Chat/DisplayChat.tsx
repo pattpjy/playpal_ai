@@ -20,56 +20,66 @@ export const DisplayChat = ({ text, activities_list, user }) => {
   return (
     <div>
       <Box
-        sx={{
-          padding: '10px',
-          borderRadius: '5px',
-        }}
+      // sx={{
+      //   padding: '10px',
+      //   borderRadius: '5px',
+      // }}
       >
         <Box
-          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}
+          mt={4}
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+          }}
         >
           <Typography variant='h5'>AI Assistant:</Typography>
-          <Typography variant='body1' ml={2}>
-            With what we know about {user.childName}, We'd like to recommend
-            these activities.
+          <Typography variant='body1' ml={2} mb={2}>
+            With what we know about {user.childName}, {text}
           </Typography>
         </Box>
 
-        <Card>
-          <CardContent>
+        <Card
+          sx={{
+            bgcolor: 'aliceblue',
+            margin: 'auto',
+            p: 0,
+            boxShadow: 5,
+          }}
+        >
+          <CardContent sx={{ p: 0 }}>
+            <Typography variant='h6' sx={{ p: 2 }}>
+              Explore each activities in details:
+            </Typography>
             <List disablePadding>
               {activities_list.map((activities_list, index) => (
-                <ListItem key={index + 123}>
-                  <CardActions key={index + 111}>
+                <ListItem key={index + 123} sx={{ borderBottom: 1 }}>
+                  {/* <CardActions key={index + 111}>
                     <IconButton edge='end' aria-label='delete'>
                       <FavoriteBorderIcon />
                     </IconButton>
-                  </CardActions>
+                  </CardActions> */}
                   <Box
                     sx={{
-                      width: '100%',
+                      width: '80%',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
                   >
-                    <ListItemButton>
+                    <ListItemButton
+                      component='a'
+                      href={`http://www.education.com${activities_list.url}`}
+                    >
                       <ListItemText
                         disableTypography
-                        sx={{ fontWeight: 'bold' }}
+                        sx={{ fontWeight: 'bold', width: '65%' }}
                         key={index + 333}
                         primary={activities_list.title}
                       />
                     </ListItemButton>
                     <TextDisplay text={activities_list.Content} />
-                    {/* <ListItemText
-                      key={index + 222}
-                      primary={activities_list.Content}
-                      onClick={() => setTextWrapper(!textWrapper)}
-                      style={{ whiteSpace: textWrapper ? 'noWrap' : 'normal' }}
-                    /> */}
                   </Box>
-
                   <CardMedia
                     component='img'
                     key={index + 444}
