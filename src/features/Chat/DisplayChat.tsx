@@ -13,6 +13,9 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+
+import { TextDisplay } from '../../component/common/Chat/TextDisplay';
+
 export const DisplayChat = ({ text, activities_list, user }) => {
   const [textWrapper, setTextWrapper] = useState(false);
 
@@ -25,6 +28,7 @@ export const DisplayChat = ({ text, activities_list, user }) => {
           borderRadius: '5px',
         }}
       >
+        <Typography variant='h3'>Assistent:</Typography>
         <Typography variant='body1'>
           With what we know about {user.childName}, We'd like to recommend these
           activities.
@@ -41,6 +45,7 @@ export const DisplayChat = ({ text, activities_list, user }) => {
                   </CardActions>
                   <Box
                     sx={{
+                      width: '100%',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'center',
@@ -48,16 +53,19 @@ export const DisplayChat = ({ text, activities_list, user }) => {
                   >
                     <ListItemButton>
                       <ListItemText
+                        disableTypography
+                        sx={{ fontWeight: 'bold' }}
                         key={index + 333}
                         primary={activities_list.title}
                       />
                     </ListItemButton>
-                    <ListItemText
+                    <TextDisplay text={activities_list.Content} />
+                    {/* <ListItemText
                       key={index + 222}
                       primary={activities_list.Content}
                       onClick={() => setTextWrapper(!textWrapper)}
                       style={{ whiteSpace: textWrapper ? 'noWrap' : 'normal' }}
-                    />
+                    /> */}
                   </Box>
 
                   <CardMedia
