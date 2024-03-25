@@ -101,8 +101,8 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
     <>
       {greeting && (
         <p>
-          Hello there {current_user.userName}! I can help you find some fun
-          activities for {current_user.childName}. Just start typing...
+          Hello there {user.userName}! I can help you find some fun activities
+          for {user.childName}. Just start typing...
         </p>
       )}
       <PromptForm onSubmit={handleFormData} />

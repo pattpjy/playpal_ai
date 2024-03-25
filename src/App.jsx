@@ -6,8 +6,6 @@ import { Route, Routes } from 'react-router-dom';
 import UserForm from './features/User_form.tsx';
 
 export const App = () => {
-  const [greeting, setGreeting] = useState(true);
-
   const mock_user = {
     userName: 'Sally Salivan',
     userId: '006102102001',
