@@ -39,18 +39,27 @@ export const DisplayChat = ({ text, activities_list, user }) => {
                       <FavoriteBorderIcon />
                     </IconButton>
                   </CardActions>
-                  <ListItemButton>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <ListItemButton>
+                      <ListItemText
+                        key={index + 333}
+                        primary={activities_list.title}
+                      />
+                    </ListItemButton>
                     <ListItemText
-                      key={index + 333}
-                      primary={activities_list.title}
+                      key={index + 222}
+                      primary={activities_list.Content}
+                      onClick={() => setTextWrapper(!textWrapper)}
+                      style={{ whiteSpace: textWrapper ? 'noWrap' : 'normal' }}
                     />
-                  </ListItemButton>
-                  <ListItemText
-                    key={index + 222}
-                    primary={activities_list.Content}
-                    onClick={() => setTextWrapper(!textWrapper)}
-                    style={{ whiteSpace: textWrapper ? 'pre-wrap' : 'nowrap' }}
-                  />
+                  </Box>
+
                   <CardMedia
                     component='img'
                     key={index + 444}
