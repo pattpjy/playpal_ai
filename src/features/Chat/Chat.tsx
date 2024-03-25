@@ -3,7 +3,7 @@ import { PromptForm } from './PromptForm.tsx';
 import { DisplayChat } from './DisplayChat.tsx';
 import { chatAPIResponse } from '../../model/chat.ts';
 
-export const Chat: React.FC = () => {
+export const Chat: React.FC = ({ user }) => {
   const [queryText, setQueryText] = useState('');
   const [chatMSG, setChatMSG] = useState<chatAPIResponse>({
     text: '',
@@ -100,6 +100,7 @@ export const Chat: React.FC = () => {
       <DisplayChat
         text={chatMSG?.text}
         activities_list={chatMSG?.activities_list}
+        user={user}
       ></DisplayChat>
     </>
   );

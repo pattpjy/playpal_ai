@@ -30,7 +30,7 @@ export const App = () => {
           activities for {current_user.childName}. Just start typing...
         </p>
       )}
-      <Chat />
+      <Chat user={mock_user} />
     </>
   );
 };
