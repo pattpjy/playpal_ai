@@ -3,6 +3,7 @@ import { PromptForm } from './PromptForm.tsx';
 import { DisplayChat } from './DisplayChat.tsx';
 import { User } from '../../model/model_user.ts';
 import { chatAPIResponse } from '../../model/chat.ts';
+import { Box, Typography } from '@mui/material';
 
 export const Chat: React.FC<{ user: User }> = ({ user }) => {
   const [queryText, setQueryText] = useState('');
@@ -98,13 +99,27 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
   return (
     <>
       <PromptForm onSubmit={handleFormData} />
-      {queryText && (
-        <DisplayChat
-          text={chatMSG?.text}
-          activities_list={chatMSG?.activities_list}
-          user={user}
-        ></DisplayChat>
-      )}
+      <Box>
+        <Box
+          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}
+        >
+          {' '}
+          <Typography variant='h5'>{user.userName}: </Typography>
+          <Typography variant='body1'>
+            {queryText
+              ? `You asked: ${queryText}`
+              : 'Type a question to get started!'}
+          </Typography>
+        </Box>
+
+        {queryText && (
+          <DisplayChat
+            text={chatMSG?.text}
+            activities_list={chatMSG?.activities_list}
+            user={user}
+          ></DisplayChat>
+        )}
+      </Box>
     </>
   );
 };

@@ -17,22 +17,24 @@ import CardContent from '@mui/material/CardContent';
 import { TextDisplay } from '../../component/common/Chat/TextDisplay';
 
 export const DisplayChat = ({ text, activities_list, user }) => {
-  const [textWrapper, setTextWrapper] = useState(false);
-
   return (
     <div>
       <Box
         sx={{
-          backgroundColor: '#f5f5f5',
           padding: '10px',
           borderRadius: '5px',
         }}
       >
-        <Typography variant='h3'>Assistent:</Typography>
-        <Typography variant='body1'>
-          With what we know about {user.childName}, We'd like to recommend these
-          activities.
-        </Typography>
+        <Box
+          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}
+        >
+          <Typography variant='h5'>AI Assistant:</Typography>
+          <Typography variant='body1' ml={2}>
+            With what we know about {user.childName}, We'd like to recommend
+            these activities.
+          </Typography>
+        </Box>
+
         <Card>
           <CardContent>
             <List disablePadding>
