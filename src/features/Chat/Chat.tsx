@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { PromptForm } from './PromptForm.tsx';
 import { DisplayChat } from './DisplayChat.tsx';
+import { User } from '../../model/model_user.ts';
 import { chatAPIResponse } from '../../model/chat.ts';
 
-export const Chat: React.FC = ({ user }) => {
+export const Chat: React.FC<{ user: User }> = ({ user }) => {
   const [queryText, setQueryText] = useState('');
   const [chatMSG, setChatMSG] = useState<chatAPIResponse>({
     text: '',
@@ -97,11 +98,13 @@ export const Chat: React.FC = ({ user }) => {
   return (
     <>
       <PromptForm onSubmit={handleFormData} />
-      <DisplayChat
-        text={chatMSG?.text}
-        activities_list={chatMSG?.activities_list}
-        user={user}
-      ></DisplayChat>
+      {queryText && (
+        <DisplayChat
+          text={chatMSG?.text}
+          activities_list={chatMSG?.activities_list}
+          user={user}
+        ></DisplayChat>
+      )}
     </>
   );
 };

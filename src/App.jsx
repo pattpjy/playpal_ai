@@ -2,6 +2,8 @@ import { React, useState } from 'react';
 import './App.css';
 import { Chat } from './features/Chat/Chat.tsx';
 import NavBar from './AppBar/NavBar.tsx';
+import { Route, Routes } from 'react-router-dom';
+import UserForm from './features/User_form.tsx';
 
 export const App = () => {
   const [greeting, setGreeting] = useState(true);
@@ -24,7 +26,10 @@ export const App = () => {
           activities for {current_user.childName}. Just start typing...
         </p>
       )}
-      <Chat user={mock_user} />
+      <Routes>
+        <Route exact path='/' element={<Chat user={current_user} />} />
+        <Route exact path='/user' element={<UserForm />} />
+      </Routes>
     </>
   );
 };
