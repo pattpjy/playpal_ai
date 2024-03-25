@@ -10,7 +10,9 @@ export default function NavBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
         <Toolbar>
-          <Button color='inherit'>Account Info</Button>
+          <Button content='a' href='/user' color='inherit'>
+            User Info
+          </Button>
           <Button color='inherit'>Collection</Button>
         </Toolbar>
       </AppBar>

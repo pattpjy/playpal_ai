@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User } from '../model/model_user';
+import { Button, TextField } from '@mui/material';
 
 const UserForm = (User: User) => {
   const [input, setInput] = useState<User>();
@@ -10,30 +11,38 @@ const UserForm = (User: User) => {
   };
 
   return (
-    <>
+    <div style={{ margin: '20px' }}>
       <form onSubmit={handleSubmit}>
-        <label>
-          User Input:
-          <input type='text' placeholder='Enter your name' name='userName' />
-          <input
-            type='text'
-            placeholder="Enter your child's name"
-            name='childName'
-          />
-          <input
-            type='text'
-            placeholder="Enter your child's age"
-            name='childAge'
-          />
-          <input
-            type='text'
-            placeholder="Enter your child's age"
-            name='childInterest'
-          />
-        </label>
-        <input type='submit' value='Submit' />
+        <TextField
+          required
+          id='outlined-required'
+          label='Required'
+          defaultValue='Parent Name'
+        />
+        <TextField
+          required
+          id='outlined-required'
+          label='Required'
+          defaultValue='Child Name'
+        />
+        <TextField
+          required
+          id='outlined-required'
+          label='Required'
+          defaultValue='Child Age'
+        />
+        <TextField
+          required
+          id='outlined-required'
+          label='Required'
+          defaultValue='Child Interest'
+        />
+        <Button variant='contained' onClick={handleSubmit}>
+          Submit
+          <input type='submit' value='submit' style={{ display: 'none' }} />
+        </Button>
       </form>
-    </>
+    </div>
   );
 };
 

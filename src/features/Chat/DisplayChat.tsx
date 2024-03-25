@@ -19,12 +19,7 @@ import { TextDisplay } from '../../component/common/Chat/TextDisplay';
 export const DisplayChat = ({ text, activities_list, user }) => {
   return (
     <div>
-      <Box
-      // sx={{
-      //   padding: '10px',
-      //   borderRadius: '5px',
-      // }}
-      >
+      <Box>
         <Box
           mt={4}
           sx={{

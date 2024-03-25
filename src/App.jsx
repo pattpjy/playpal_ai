@@ -20,12 +20,7 @@ export const App = () => {
   return (
     <>
       <NavBar />
-      {greeting && (
-        <p>
-          Hello there {current_user.userName}! I can help you find some fun
-          activities for {current_user.childName}. Just start typing...
-        </p>
-      )}
+
       <Routes>
         <Route exact path='/' element={<Chat user={current_user} />} />
         <Route exact path='/user' element={<UserForm />} />

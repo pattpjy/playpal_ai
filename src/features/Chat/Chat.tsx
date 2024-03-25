@@ -11,7 +11,7 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
     text: '',
     activities_list: [],
   });
-
+  const [greeting, setGreeting] = useState(true);
   const postChat = () => {
     return Promise.resolve({
       response: {
@@ -99,13 +99,19 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
 
   return (
     <>
+      {greeting && (
+        <p>
+          Hello there {current_user.userName}! I can help you find some fun
+          activities for {current_user.childName}. Just start typing...
+        </p>
+      )}
       <PromptForm onSubmit={handleFormData} />
       <Box sx={{ p: 5, boxShadow: 1 }}>
         <Box
           sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}
         >
           <Typography variant='h5'>{user.userName}: </Typography>
-          <Typography variant='body1'>
+          <Typography variant='body1' sx={{ pl: 2 }}>
             {queryText
               ? `You asked: ${queryText}`
               : 'Type a question to get started!'}
