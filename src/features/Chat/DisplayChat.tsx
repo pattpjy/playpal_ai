@@ -13,10 +13,15 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-
 import { TextDisplay } from '../../component/common/Chat/TextDisplay';
-
+import { textCleanup } from '../../component/common/textCleanup';
 export const DisplayChat = ({ text, activities_list, user }) => {
+  let displayResponseText;
+  if (text) {
+    displayResponseText = textCleanup({ text });
+    console.log(displayResponseText.summary);
+  }
+
   return (
     <div>
       <Box mt={5} sx={{ bgcolor: 'aliceblue', boxShadow: 5, p: 5 }}>
@@ -29,7 +34,7 @@ export const DisplayChat = ({ text, activities_list, user }) => {
         >
           <Typography variant='h5'>AI Assistant:</Typography>
           <Typography variant='body1' ml={2} mb={2}>
-            With what we know about {user.childName}, {text}
+            {displayResponseText.summary}
           </Typography>
         </Box>
         <CardContent sx={{ p: 0 }}>
