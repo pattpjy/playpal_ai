@@ -4,7 +4,8 @@ import { DisplayChat } from './DisplayChat.tsx';
 import { User } from '../../model/model_user.ts';
 import { chatAPIResponse } from '../../model/chat.ts';
 import { Box, Typography } from '@mui/material';
-
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
 export const Chat: React.FC<{ user: User }> = ({ user }) => {
   const [queryText, setQueryText] = useState('');
   const [chatMSG, setChatMSG] = useState<chatAPIResponse>({
@@ -12,6 +13,7 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
     activities_list: [],
   });
   const [greeting, setGreeting] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const postChat = () => {
       // return Promise.resolve({
@@ -78,6 +80,9 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
       //   });
       //   console.log('Response from Python API:', data);
       // });
+      if (queryText !== '') {
+        setLoading(true);
+      }
       fetch('http://localhost:8000/chat/', {
         method: 'POST',
         headers: {
@@ -91,6 +96,7 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
             text: data.response.text,
             activities_list: data.response.activities_list,
           });
+          setLoading(false);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
@@ -128,13 +134,19 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
               : 'Type a question to get started!'}
           </Typography>
         </Box>
-
-        {queryText && (
+        {loading && (
+          <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+            <LinearProgress color='secondary' />
+            <LinearProgress color='success' />
+            <LinearProgress color='inherit' />
+          </Stack>
+        )}
+        {queryText !== '' && !loading && (
           <DisplayChat
             text={chatMSG?.text}
             activities_list={chatMSG?.activities_list}
             user={user}
-          ></DisplayChat>
+          />
         )}
       </Box>
     </>
