@@ -19,9 +19,8 @@ import { TextDisplay } from '../../component/common/Chat/TextDisplay';
 export const DisplayChat = ({ text, activities_list, user }) => {
   return (
     <div>
-      <Box>
+      <Box mt={5} sx={{ bgcolor: 'aliceblue', boxShadow: 5, p: 5 }}>
         <Box
-          mt={4}
           sx={{
             display: 'flex',
             flexDirection: 'row',
@@ -33,59 +32,60 @@ export const DisplayChat = ({ text, activities_list, user }) => {
             With what we know about {user.childName}, {text}
           </Typography>
         </Box>
-
-        <Card
-          sx={{
-            bgcolor: 'aliceblue',
-            margin: 'auto',
-            p: 0,
-            boxShadow: 5,
-          }}
-        >
-          <CardContent sx={{ p: 0 }}>
-            <Typography variant='h6' sx={{ p: 2 }}>
-              Explore each activities in details:
-            </Typography>
-            <List disablePadding>
-              {activities_list.map((activities_list, index) => (
-                <ListItem key={index + 123} sx={{ borderBottom: 1 }}>
-                  {/* <CardActions key={index + 111}>
+        <CardContent sx={{ p: 0 }}>
+          <Typography variant='h6' sx={{ p: 2 }}>
+            Explore each activities in details:
+          </Typography>
+          <List disablePadding>
+            {activities_list.map((activities_list, index) => (
+              <ListItem
+                key={index + 123}
+                sx={{ borderBottom: 1, justifyContent: 'space-evenly' }}
+              >
+                {/* <CardActions key={index + 111}>
                     <IconButton edge='end' aria-label='delete'>
                       <FavoriteBorderIcon />
                     </IconButton>
                   </CardActions> */}
-                  <Box
-                    sx={{
-                      width: '80%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                    }}
+                <Box
+                  sx={{
+                    width: '80%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ListItemButton
+                    component='a'
+                    href={`http://www.education.com${activities_list.url}`}
                   >
-                    <ListItemButton
-                      component='a'
-                      href={`http://www.education.com${activities_list.url}`}
-                    >
-                      <ListItemText
-                        disableTypography
-                        sx={{ fontWeight: 'bold', width: '65%' }}
-                        key={index + 333}
-                        primary={activities_list.title}
-                      />
-                    </ListItemButton>
-                    <TextDisplay text={activities_list.Content} />
-                  </Box>
-                  <CardMedia
-                    component='img'
-                    key={index + 444}
-                    sx={{ width: 151 }}
-                    image={activities_list.thumbnail}
+                    <ListItemText
+                      disableTypography
+                      sx={{ fontWeight: 'bold', width: '70%' }}
+                      key={index + 333}
+                      primary={activities_list.title}
+                    />
+                  </ListItemButton>
+                  <TextDisplay
+                    sx={{ width: '70%' }}
+                    text={activities_list.Content}
                   />
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-        </Card>
+                </Box>
+                <CardMedia
+                  component='img'
+                  key={index + 444}
+                  sx={{
+                    width: 150,
+                    height: 100,
+                    objectFit: 'cover',
+                    objectPosition: 'top',
+                  }}
+                  image={activities_list.thumbnail}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </CardContent>
       </Box>
     </div>
   );

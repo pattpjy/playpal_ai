@@ -18,7 +18,6 @@ export const App = () => {
   return (
     <>
       <NavBar />
-
       <Routes>
         <Route exact path='/' element={<Chat user={current_user} />} />
         <Route exact path='/user' element={<UserForm />} />

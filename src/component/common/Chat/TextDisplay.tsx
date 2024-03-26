@@ -20,7 +20,7 @@ export const TextDisplay = ({ text }: { text: string }) => {
           primaryTypographyProps={{ noWrap: textWrapper }}
           primary={text}
           onClick={() => setTextWrapper(!textWrapper)}
-          sx={{ width: '55%' }}
+          sx={{ width: '95%' }}
         />
       </Box>
     </>
