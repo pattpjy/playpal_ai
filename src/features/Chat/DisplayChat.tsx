@@ -58,6 +58,7 @@ export const DisplayChat = ({ text, activities_list, user }) => {
                   <ListItemButton
                     component='a'
                     href={`http://www.education.com${activities_list.url}`}
+                    target='_blank'
                   >
                     <ListItemText
                       disableTypography
@@ -66,10 +67,7 @@ export const DisplayChat = ({ text, activities_list, user }) => {
                       primary={activities_list.title}
                     />
                   </ListItemButton>
-                  <TextDisplay
-                    sx={{ width: '70%' }}
-                    text={activities_list.Content}
-                  />
+                  <TextDisplay text={activities_list.Content} />
                 </Box>
                 <CardMedia
                   component='img'
