@@ -2,14 +2,10 @@
 
 The Educational Activity Recommender is a web application designed to help parents find age and interest-appropriate educational activities for their children. Leveraging advanced AI techniques, the application generates personalized recommendations for engaging learning experiences.
 
-<div>
-    <a href="https://www.loom.com/share/46f6f3c7e2d9443f9b79438d8b97b16f">
-      <p>Loom Message - 26 March 2024 - Watch Video</p>
-    </a>
-    <a href="https://www.loom.com/share/46f6f3c7e2d9443f9b79438d8b97b16f">
-      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/46f6f3c7e2d9443f9b79438d8b97b16f-with-play.gif">
-    </a>
-  </div>
+
+<video src="https://github.com/pattpjy/playpal_ai/assets/111454351/bb744b3b-26aa-48d1-98fb-70adb86ca7a9" controls="controls" style="max-width: 730px;">
+</video>
+
 
 ## Features
 
