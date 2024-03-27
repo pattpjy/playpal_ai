@@ -72,7 +72,7 @@ The Educational Activity Recommender is a web application designed to help paren
 2. Navigate to the project directory:
 
    ```bash
-   cd playpal-api
+   cd server
    ```
 
 3. Install dependencies:
