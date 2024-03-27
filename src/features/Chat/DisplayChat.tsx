@@ -34,7 +34,7 @@ export const DisplayChat = ({ text, activities_list, user }) => {
         >
           <Typography variant='h5'>AI Assistant:</Typography>
           <Typography variant='body1' ml={2} mb={2}>
-            {displayResponseText.summary}
+            {displayResponseText?.summary}
           </Typography>
         </Box>
         <CardContent sx={{ p: 0 }}>

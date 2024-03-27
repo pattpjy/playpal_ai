@@ -7,7 +7,7 @@ import UserForm from './features/User_form.tsx';
 
 export const App = () => {
   const mock_user = {
-    userName: 'Sally Salivan',
+    userName: 'Sulley Sullivan',
     userId: '006102102001',
     childName: 'Little Boo',
     childAge: 3,

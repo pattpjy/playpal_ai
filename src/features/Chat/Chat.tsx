@@ -80,9 +80,7 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
       //   });
       //   console.log('Response from Python API:', data);
       // });
-      if (queryText !== '') {
-        setLoading(true);
-      }
+      setLoading(true);
       fetch('http://localhost:8000/chat/', {
         method: 'POST',
         headers: {
@@ -102,7 +100,9 @@ export const Chat: React.FC<{ user: User }> = ({ user }) => {
           console.error('Error fetching data:', error);
         });
     };
-    postChat();
+    if (queryText !== '') {
+      postChat();
+    }
   }, [queryText]);
 
   const handleFormData = (data) => {
