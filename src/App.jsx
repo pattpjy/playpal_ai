@@ -1,14 +1,13 @@
 import { React, useState } from 'react';
-
 import './App.css';
 import { Chat } from './features/Chat/Chat.tsx';
-import { AppBar, Toolbar, Button } from '@mui/material';
+import NavBar from './AppBar/NavBar.tsx';
+import { Route, Routes } from 'react-router-dom';
+import UserForm from './features/User_form.tsx';
 
 export const App = () => {
-  const [greeting, setGreeting] = useState(true);
-
   const mock_user = {
-    userName: 'Sally Salivan',
+    userName: 'Sulley Sullivan',
     userId: '006102102001',
     childName: 'Little Boo',
     childAge: 3,
@@ -18,19 +17,11 @@ export const App = () => {
   const current_user = mock_user;
   return (
     <>
-      <AppBar position='static'>
-        <Toolbar>
-          <Button color='inherit'>Account Info</Button>
-          <Button color='inherit'>Collection</Button>
-        </Toolbar>
-      </AppBar>
-      {greeting && (
-        <p>
-          Hello there {current_user.userName}! I can help you find some fun
-          activities for {current_user.childName}. Just start typing...
-        </p>
-      )}
-      <Chat />
+      <NavBar />
+      <Routes>
+        <Route exact path='/' element={<Chat user={current_user} />} />
+        <Route exact path='/user' element={<UserForm />} />
+      </Routes>
     </>
   );
 };

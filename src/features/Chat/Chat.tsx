@@ -1,106 +1,154 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PromptForm } from './PromptForm.tsx';
 import { DisplayChat } from './DisplayChat.tsx';
+import { User } from '../../model/model_user.ts';
 import { chatAPIResponse } from '../../model/chat.ts';
-
-export const Chat: React.FC = () => {
+import { Box, Typography } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+export const Chat: React.FC<{ user: User }> = ({ user }) => {
   const [queryText, setQueryText] = useState('');
   const [chatMSG, setChatMSG] = useState<chatAPIResponse>({
     text: '',
     activities_list: [],
   });
+  const [greeting, setGreeting] = useState(true);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const postChat = () => {
+      // return Promise.resolve({
+      //   response: {
+      //     text: "For your 7-year-old who loves the ocean, here are some engaging activities she may enjoy:\n\n1. **Logic Puzzle #1: Outdoor Fun**: This worksheet introduces logic puzzles with an outdoor theme. It includes clues about four friends who love racing outside. Your child can use their logic and reasoning skills to figure out who rides the roller blades, bike, scooter, and skateboard.\n\n2. **Color the Cars: Number 7**: This car-themed math coloring worksheet is a fun way for your child to practice number identification. They can find and color all the number 7 cars among a group of 1-7 labeled cars.\n\nThese activities are not just fun but also provide educational value that can help develop your child's critical thinking and math skills.",
+      //     activities_list: [
+      //       {
+      //         title:
+      //           'Spring Creative Writing Prompt #3: Sifting Through the Sand',
+      //         Content:
+      //           'Invite your students to practice their creative storytelling with this fun, spring-themed writing prompt about a peculiar find at the beach following a storm! Using the prompt as an inspiring starting point, students are invited to write a creative story that includes interesting characters, descriptive language, and an engaging plot with a clear conflict and resolution. Ideal for a wide range of learners in grades four through eight, this writing prompt is a great way to allow learners to practice their creative writing and storytelling skills.\nThis worksheet can be used independently or completed alongside our other worksheets in this series: Spring Creative Writing Prompt #1: The Puzzling Picnic and Spring Creative Writing Prompt #2: Foul Ball Fiasco.\n',
+      //         Categories:
+      //           "{'grade': ['Fourth Grade', 'Fifth Grade', 'Sixth Grade', 'Seventh Grade', 'Eighth Grade'], 'subject': ['Reading & Writing', 'Writing', 'Seasonal', 'Fiction Writing', 'Spring', 'Creative Writing']}",
+      //         url: '/worksheet/article/spring-creative-writing-prompt-3-sifting-through-the-sand/',
+      //         thumbnail:
+      //           'https://cdn.education.com/worksheet-image/3906203/spring-creative-writing-prompt-3-2023-12-13.gif',
+      //       },
+      //       {
+      //         title: 'Color the Hearts: Number 7',
+      //         Content:
+      //           'Can you color in all the hearts with the number 7? Young learners will love identifying numbers with this heart-themed math coloring worksheet! Early learners are presented with 10 hearts labeled with numbers 1 through 7, and they are asked to color all of the hearts with the number 7. Ideal for your youngest learners in preschool and pre-kindergarten, this sweet and simple worksheet is an inviting way to help students build their number sense and grow their confidence recognizing numbers 1–10. \nThis engaging worksheet is the seventh in a series of 10 heart-themed number identification worksheets. Keep learning with Color the Hearts: Number 8 next, or check out the full set of Color the Hearts worksheets to download all 10!\n',
+      //         Categories:
+      //           "{'grade': ['Preschool'], 'subject': ['Math', 'Number Sense', 'Holidays', 'Numbers 0-10', \"Valentine's Day\", 'Identifying Numbers 0-10']}",
+      //         url: '/worksheet/article/color-the-hearts-number-7/',
+      //         thumbnail:
+      //           'https://cdn.education.com/worksheet-image/3934311/color-hearts-number-7-2024-01-30.gif',
+      //       },
+      //       {
+      //         title: 'Color the Cars: Number 7',
+      //         Content:
+      //           "Can you find all the number 7s? Give your young learner fun number identification practice with this car-themed math coloring worksheet! Early learners will look at 10 cars labeled with numbers 1 through 7 and color all of the cars with the number 7. Perfect for your youngest learners in preschool and pre-kindergarten, this simple and inviting worksheet is a great way to build students' number sense and grow their confidence recognizing numbers 1–10.\nThis worksheet is the seventh in a series of 10 car-themed number identification worksheets. Keep learning with Color the Cars: Number 8 next! Or check out the full set of our Color the Cars worksheets to download all 10!\n",
+      //         Categories:
+      //           "{'grade': ['Preschool'], 'subject': ['Math', 'Number Sense', 'Coloring', 'Numbers 0-10', 'Vehicles', 'Identifying Numbers 0-10']}",
+      //         url: '/worksheet/article/color-the-cars-number-7/',
+      //         thumbnail:
+      //           'https://cdn.education.com/worksheet-image/3909706/color-cars-number-7-2023-12-19.gif',
+      //       },
+      //       {
+      //         title: 'Logic Puzzle #1: Outdoor Fun',
+      //         Content:
+      //           "Introduce second- and third-grade learners to the exciting world of logic puzzles with this engaging worksheet! Meet Rita, Harry, Frank, and Zoe. These four friends love racing each other outside in the sunshine. Each friend brings a helmet and rides something different for ultimate outdoor fun. Learners will need to use the clues, the provided 4 x 4 grid, and their logic and reasoning skills to figure out who rides the roller blades, the bike, the scooter, and the skateboard.\n \nLogic puzzles like these are a great way to strengthen students' math reasoning and critical thinking skills. Ready for a bit more of a challenge? Try the Logic Puzzle #1: Harriet’s Hats worksheet next!\n",
+      //         Categories:
+      //           "{'grade': ['Second Grade', 'Third Grade'], 'subject': ['Math', 'Math Puzzles', 'Offline games', 'Puzzles & Sudoku']}",
+      //         url: '/worksheet/article/logic-puzzle-1-outdoor-fun/',
+      //         thumbnail:
+      //           'https://cdn.education.com/worksheet-image/3905970/logic-puzzle-1-outdoor-fun-2023-12-13.gif',
+      //       },
+      //       {
+      //         title: 'After-Reading Response Choice Board: Fiction Text',
+      //         Content:
+      //           'Differentiate learning with this fun after-reading response choice board! Invite your learner to choose from nine different and engaging ways to respond to literature, each with a primary focus on key reading comprehension skills such as summary, plot, close reading, and character analysis. Readers can choose to put together a playlist that represents a character, create a vision board or graphic novel, write an alternate ending to the story, and more!\nGeared toward middle-grade learners, this choice board is a great way to incorporate choice and student voice when analyzing fiction texts. This multi-use worksheet is perfect for a variety of contexts, including centers, no-prep sub-plans, close reading, teaching fiction reading strategies, fiction book reports, or fiction book clubs.\nCheck out our Reading Survey: All About My Reading Goal worksheet for more reading activities.\n',
+      //         Categories:
+      //           "{'grade': ['Sixth Grade', 'Seventh Grade', 'Eighth Grade'], 'subject': ['Reading & Writing', 'Reading', 'Writing', 'Fiction Writing', 'Nonfiction Writing', 'Reading Comprehension Strategies', 'Creative Writing', 'Response to Literature', 'Summarizing', 'Making Inferences', 'Sequencing Events', 'Making Connections in Reading', 'Analyzing Story Structure', 'Summarizing Fiction Texts', 'Sequencing in Fiction', 'Analyzing Character', 'Making Inferences in Fiction', 'Making Connections in Fiction', 'Analyzing Point of View']}",
+      //         url: '/worksheet/article/after-reading-response-choice-board-fiction-text/',
+      //         thumbnail:
+      //           'https://cdn.education.com/worksheet-image/3885046/after-reading-response-choice-board-2023-11-14.gif',
+      //       },
+      //     ],
+      //   },
+      // }).then((data) => {
+      //   setChatMSG({
+      //     text: data.response.text,
+      //     activities_list: data.response.activities_list,
+      //   });
+      //   console.log('Response from Python API:', data);
+      // });
+      setLoading(true);
+      fetch('http://localhost:8000/chat/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text: queryText }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setChatMSG({
+            text: data.response.text,
+            activities_list: data.response.activities_list,
+          });
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    };
+    if (queryText !== '') {
+      postChat();
+    }
+  }, [queryText]);
 
-  const postChat = () => {
-    return Promise.resolve({
-      response: {
-        text: "Based on your child's interest in astronomy, here are some recommended activities for her:\n\n1. **Activity Title: Solar Eclipses**\n   - **Description:** Show what you know about solar eclipses with this engaging science worksheet. Students will explore what happens during a solar eclipse and the conditions needed for it to occur. This activity is geared toward sixth, seventh, and eighth-grade learners.\n   - **Metadata:** Grades: Sixth Grade, Seventh Grade, Eighth Grade; Subject: Science, Earth & Space Science, Outer Space\n\n2. **Activity Title: Lunar Eclipses**\n   - **Description:** Explore why and how lunar eclipses occur with this earth science worksheet. Students will learn about the sun-Earth-moon system during a lunar eclipse, the phases of the moon, and more fascinating facts. This activity is suitable for sixth, seventh, and eighth-grade students.\n   - **Metadata:** Grades: Sixth Grade, Seventh Grade, Eighth Grade; Subject: Science, Earth & Space Science, Outer Space\n\n3. **Activity Title: Earth’s Rotation and Revolution**\n   - **Description:** Demonstrate your understanding of Earth's movement patterns with this earth and space science worksheet. Students will label a diagram depicting the Earth-sun system and connect Earth’s rotation and revolution to the passage of time. This activity is designed for middle-grade students.\n   - **Metadata:** Grades: Sixth Grade, Seventh Grade, Eighth Grade; Subject: Science, Earth & Space Science, Outer Space\n\n4. **Activity Title: Use a Model to Identify Earth’s Seasons**\n   - **Description:** Understand how Earth's tilt causes seasons with this educational worksheet. Students will label a diagram to show the different seasons and analyze the limitations of the model representing the Earth-sun system. This activity is ideal for students in sixth and seventh grade.\n   - **Metadata:** Grades: Sixth Grade, Seventh Grade; Subject: Science, Earth & Space Science, Outer Space\n\nThese activities will not only cater to your child's interest in astronomy but also provide valuable learning experiences related to outer space and the Earth-sun-moon system. Enjoy exploring the wonders of space with your little astronomer!",
-        activities_list: [
-          {
-            title: 'A (Little) Interview With the New Year',
-            Content:
-              "Children will reflect on the past year, and share their hopes and predictions for the year to come, with this endearing interview with 2024. After answering 2024's questions, either on their own or with the help of an adult, children will draw a picture of themselves and the new year doing something fun together. Designed for grades preschool through first grade, this creative activity is a fun way to begin the new year, either at home or in the classroom!\n",
-            Categories:
-              "{'grade': ['Preschool', 'Kindergarten', 'First Grade'], 'subject': ['Reading & Writing', 'Reading', 'Holidays', 'New Year', 'Reading Comprehension Strategies', 'Text Evidence']}",
-            url: '/worksheet/article/a-little-interview-with-the-new-year/',
-            thumbnail:
-              'https://cdn.education.com/worksheet-image/2466979/interview-year-2023-11-22.gif',
-          },
-          {
-            title: 'Solar Eclipses',
-            Content:
-              "Show what you know about solar eclipses with this middle grades science worksheet! In this engaging two-page earth science worksheet, students will have the opportunity to explore what happens during a solar eclipse and what conditions are needed for a solar eclipse to occur. First, learners will view a diagram of a solar eclipse and identify the conditions within the Sun-Earth-Moon system that result in a solar eclipse. Then, using what they've learned and their critical thinking skills, students will consider why a solar eclipse does not happen every month and explain their reasoning.\nGeared toward sixth-, seventh-, and eighth-grade learners, this worksheet is a great way to supplement a science lesson about outer space and solar eclipses. Prior to completing this worksheet, you can have learners review the phases of the moon with the Earth-Sun-Moon System: Phases of the Moon worksheet! And for additional related content to help take students' learning even further, check out the Lunar Eclipses worksheet next!\n",
-            Categories:
-              "{'grade': ['Sixth Grade', 'Seventh Grade', 'Eighth Grade'], 'subject': ['Science', 'Earth & Space Science', 'Outer Space']}",
-            url: '/worksheet/article/solar-eclipses/',
-            thumbnail:
-              'https://cdn.education.com/worksheet-image/3912581/solar-eclipses-2023-12-28.gif',
-          },
-          {
-            title: 'Lunar Eclipses',
-            Content:
-              'Explore how, when, and why lunar eclipses occur with this two-page earth science worksheet! Using diagrams and critical thinking skills, students will answer questions to gain a better understanding of the sun-Earth-moon system during a lunar eclipse, the phase of the moon during a lunar eclipse, and why lunar eclipses are only possible at some times of year and impossible at others. Featuring helpful illustrations and interesting facts, this worksheet is a great way to encourage learners to dig deeper into the natural world around them.\nLooking for more middle school science worksheets related to outer space and the Earth-sun-moon system? Check out the Earth-Sun-Moon System: Phases of the Moon or Solar Eclipses worksheets next!\n',
-            Categories:
-              "{'grade': ['Sixth Grade', 'Seventh Grade', 'Eighth Grade'], 'subject': ['Science', 'Earth & Space Science', 'Outer Space']}",
-            url: '/worksheet/article/lunar-eclipses/',
-            thumbnail:
-              'https://cdn.education.com/worksheet-image/3882328/lunar-eclipses-2023-11-29.gif',
-          },
-          {
-            title: 'Earth’s Rotation and Revolution',
-            Content:
-              "Show what you know about the Earth-sun system with this earth and space science worksheet! Designed for middle grades, this one-page worksheet invites learners to demonstrate their understanding of planet Earth’s movement patterns. First, students will use a word bank to label a diagram that depicts the Earth-sun system. Students will be asked to correctly apply vocabulary terms such as Northern Hemisphere, Southern Hemisphere, equator, axis, rotation, revolution, North Pole, and South Pole. Then, in part 2, students will complete sentences to connect Earth’s rotation and revolution to the passage of time.\nExplore how Earth's seasons are affected by this system with the Use a Model to Identify Earth's Seasons worksheet. For a look at how the moon fits into the system, check out the Earth-Sun-Moon System: Phases of the Moon worksheet!\n",
-            Categories:
-              "{'grade': ['Sixth Grade', 'Seventh Grade', 'Eighth Grade'], 'subject': ['Science', 'Earth & Space Science', 'Outer Space']}",
-            url: '/worksheet/article/earths-rotation-and-revolution/',
-            thumbnail:
-              'https://cdn.education.com/worksheet-image/3843989/earth-rotation-revolution-2023-09-25.gif',
-          },
-          {
-            title: 'Use a Model to Identify Earth’s Seasons',
-            Content:
-              'Explore how Earth’s tilt relative to its orbit causes seasons in this earth and space science worksheet for middle grades! This one-page worksheet explains that Earth is tilted on its axis, so as Earth revolves around the sun, the intensity of sunlight hitting different parts of Earth changes. To demonstrate their understanding of how this affects seasons, students are asked to label a diagram with the correct season in each hemisphere based on the orientation of Earth’s axis relative to the sun. Then, learners will use critical thinking skills to identify the limitations of this model as a representation of the Earth-sun system.\nContinue exploring the Earth-sun system with the Earth’s Rotation and Revolution worksheet!\n',
-            Categories:
-              "{'grade': ['Sixth Grade', 'Seventh Grade'], 'subject': ['Science', 'Earth & Space Science', 'Outer Space']}",
-            url: '/worksheet/article/use-a-model-to-identify-earths-seasons/',
-            thumbnail:
-              'https://cdn.education.com/worksheet-image/3844024/model-identify-earth-seasons-2023-09-25.gif',
-          },
-        ],
-      },
-    }).then((data) => {
-      setChatMSG({
-        text: data.response.text,
-        activities_list: data.response.activities_list,
-      });
-      console.log('Response from Python API:', data);
-    });
-    // fetch('http://localhost:8000/chat/', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify({ text: formText }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log('Response from Python API:', data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error fetching data:', error);
-    //   });
-  };
   const handleFormData = (data) => {
     setQueryText(data);
-    postChat();
   };
 
   return (
     <>
-      <PromptForm onSubmit={handleFormData} />
-      <DisplayChat
-        text={chatMSG?.text}
-        activities_list={chatMSG?.activities_list}
-      ></DisplayChat>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
+        {greeting && (
+          <p>
+            Hello there {user.userName}! I can help you find some fun activities
+            for {user.childName}. Just start typing...
+          </p>
+        )}
+        <PromptForm onSubmit={handleFormData} />
+      </Box>
+
+      <Box mt={5} sx={{ p: 5, boxShadow: 1 }}>
+        <Box
+          sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}
+        >
+          <Typography variant='h5'>{user.userName}: </Typography>
+          <Typography variant='body1' sx={{ pl: 2 }}>
+            {queryText
+              ? `You asked: ${queryText}`
+              : 'Type a question to get started!'}
+          </Typography>
+        </Box>
+        {loading && (
+          <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+            <LinearProgress color='secondary' />
+            <LinearProgress color='success' />
+            <LinearProgress color='inherit' />
+          </Stack>
+        )}
+        {queryText !== '' && !loading && (
+          <DisplayChat
+            text={chatMSG?.text}
+            activities_list={chatMSG?.activities_list}
+            user={user}
+          />
+        )}
+      </Box>
     </>
   );
 };
