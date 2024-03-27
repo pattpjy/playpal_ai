@@ -19,7 +19,6 @@ export const DisplayChat = ({ text, activities_list, user }) => {
   let displayResponseText;
   if (text) {
     displayResponseText = textCleanup({ text });
-    console.log(displayResponseText.summary);
   }
 
   return (

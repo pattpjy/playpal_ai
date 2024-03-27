@@ -7,7 +7,6 @@ export const PromptForm = ({ onSubmit }) => {
   const handleInputChange = (e) => {
     e.preventDefault();
     setFormData(e.target.value);
-    console.log({ formData });
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
