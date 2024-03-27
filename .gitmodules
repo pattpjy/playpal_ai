@@ -1,0 +1,3 @@
+[submodule "playpal_api/api_vector"]
+	path = playpal_api/api_vector
+	url = https://github.com/pattpjy/playpal_ai
