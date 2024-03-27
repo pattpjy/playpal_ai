@@ -1,0 +1,12 @@
+CREATE TABLE `activities_vector` (
+  `title` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `activity_contents` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `categories` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `url` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `thumbnail` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `vector` blob,
+   SORT KEY __UNORDERED ()
+  , SHARD KEY ()
+) AUTOSTATS_CARDINALITY_MODE=INCREMENTAL AUTOSTATS_HISTOGRAM_MODE=CREATE AUTOSTATS_SAMPLING=ON SQL_MODE='STRICT_ALL_TABLES'
+
+DROP TABLE `activities_vector`;
