@@ -1,6 +1,6 @@
-# Educational Activity Recommender
+# Playpal - Educational Activity Recommender
 
-The Educational Activity Recommender is a web application designed to help parents find age and interest-appropriate educational activities for their children. Leveraging advanced AI techniques, the application generates personalized recommendations for engaging learning experiences.
+The Playpal is a web application designed to help parents find age and interest-appropriate educational activities for their children. The application generates personalized recommendations for engaging learning experiences by leveraging advanced AI techniques.
 
 
 <video src="https://github.com/pattpjy/playpal_ai/assets/111454351/bb744b3b-26aa-48d1-98fb-70adb86ca7a9" controls="controls" style="max-width: 730px;">
@@ -11,15 +11,15 @@ The Educational Activity Recommender is a web application designed to help paren
 
 - **Personalized Recommendations**: Users can specify their child's age group and interests to receive tailored recommendations.
 - **Scraping Engine**: The application collects educational content from various websites, extracting relevant information such as titles, descriptions, and age suitability.
-- **AI-Powered Recommendations**: Using a combination of vector similarity search and a large language model (LLM), the application generates human-readable responses for recommended activities.
-- **User-Friendly Interface**: The intuitive user interface allows users to easily navigate and explore the recommended activities.
+- **AI-Powered Recommendations**: The application generates human-readable responses for recommended activities by combining vector similarity search and a large language model (LLM).
+- **User-Friendly Interface**: The intuitive user interface allows users to navigate and explore the recommended activities easily.
 - **Responsive Design**: The application is designed to work seamlessly across different devices and screen sizes.
 
 ## Technologies Used
 
-- **React**: The frontend of the application is built using React, a popular JavaScript library for building user interfaces.
+- **React**: The application's front end is built using React, a popular JavaScript library for building user interfaces.
 - **Material-UI**: Material-UI is used for styling and components to ensure a modern and visually appealing user interface.
-- **Python**: The backend of the application is built in Python, which includes the scraping engine and integration with AI models.
+- **Python**: The application's backend is built in Python, which includes the scraping engine and integration with AI models.
 - **Vector Similarity Search**: Advanced techniques such as vector similarity search are employed to match user preferences with relevant educational activities.
 - **Large Language Model (LLM)**: A large language model processes the results of vector similarity search to generate human language responses.
 - **FastAPI**: FastAPI is a modern, fast (high-performance), web framework for building APIs with Python.
