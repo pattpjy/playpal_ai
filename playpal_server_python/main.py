@@ -12,7 +12,7 @@ load_dotenv()
 
 # Create vector and connect to singlestore
 # Initialize OpenAI API with your API key
-os.environ["OPENAI_API_KEY"] = "my_open_ai"
+
 client = OpenAI()
 
 # Load Dataset /Convert the dataset to a pandas dataframe
