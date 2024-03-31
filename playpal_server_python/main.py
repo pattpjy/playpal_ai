@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=".env")
 
 # Create vector and connect to singlestore
 # Initialize OpenAI API with your API key
@@ -28,41 +28,42 @@ def get_embedding(text, model="text-embedding-3-small"):
     return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
-db_host = os.environ.get('HOST')
-db_port = os.environ.get('PORT')
-db_user = os.environ.get('USER')
-db_password = os.environ.get('PASSWORD')
-db_name = os.environ.get('DATABASE')
+db_host = os.environ.get('DB_HOST')
+db_port = os.environ.get('DB_PORT')
+db_user = os.environ.get('DB_USER')
+db_password = os.environ.get('DB_PASSWORD')
+db_name = os.environ.get('DB_DATABASE')
 
 
 def connector():
-    return db.connect(db_host, db_port, db_user, db_password, db_name)
+    return db.connect(host=db_host, port=db_port, user=db_user, password=db_password, database=db_name)
 
 
 def read_vectors(vector):
     output = []
-    try:
-        mydb = connector()
-        mycursor = mydb.cursor()
-        # table name is activities_vector
-        sql = ("SELECT title, activity_contents, categories, url, thumbnail,"
-               "dot_product(json_array_pack(%s), vector) as score,"
-               " JSON_ARRAY_UNPACK(vector) as vector FROM activities_vector order by score desc limit 5")
-        mycursor.execute(sql, (str(vector)))
-        result = mycursor.fetchall()
-        for (title, activity_contents, categories, url, thumbnail, score, vector) in result:
-            output.append({
-                'Activity Title': title,
-                'Contents': activity_contents,
-                'Categories': categories,
-                'Activity_url': url,
-                'Thumbnail_url': thumbnail,
-                # 'vector': vector,
-                # 'score': score
-            })
-        mydb.close()
-    except Exception as e:
-        print(e)
+    # try:
+    mydb = connector()
+    mycursor = mydb.cursor()
+    # table name is activities_vector
+    sql = ("SELECT title, activity_contents, categories, url, thumbnail,"
+            "dot_product(json_array_pack(%s), vector) as score,"
+            " JSON_ARRAY_UNPACK(vector) as vector FROM activities_vector order by score desc limit 5")
+    mycursor.execute(sql, (str(vector)))
+    result = mycursor.fetchall()
+    print('result', result)
+    for (title, activity_contents, categories, url, thumbnail, score, vector) in result:
+        output.append({
+            'Activity Title': title,
+            'Contents': activity_contents,
+            'Categories': categories,
+            'Activity_url': url,
+            'Thumbnail_url': thumbnail,
+            # 'vector': vector,
+            # 'score': score
+        })
+    mydb.close()
+    # except Exception as e:
+    #     print("ERROR:", e)
     return output
 
 
@@ -188,7 +189,7 @@ def submit_chat(request_data: YourRequestModel):
         return {"response": response}
     except Exception as e:
         print('Problem with the request', e)
-        return {"message": e.message}
+        return {"message": e}
 
 if __name__ == "__main__":
     import uvicorn
