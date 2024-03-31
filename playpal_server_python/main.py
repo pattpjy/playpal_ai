@@ -29,14 +29,14 @@ def get_embedding(text, model="text-embedding-3-small"):
 
 
 db_host = os.environ.get('HOST')
-db_post = os.environ.get('PORT')
+db_port = os.environ.get('PORT')
 db_user = os.environ.get('USER')
 db_password = os.environ.get('PASSWORD')
 db_name = os.environ.get('DATABASE')
 
 
 def connector():
-    return db.connect(db_host, db_post, db_user, db_password, db_name)
+    return db.connect(db_host, db_port, db_user, db_password, db_name)
 
 
 def read_vectors(vector):
@@ -143,7 +143,6 @@ def handle_user_query(user_query):
 
 # query = "My 7 year olds likes to draw, what are some good activities for her"
 # response, source_information = handle_user_query(query)
-#
 # print(f"Response: {response}")
 # print(f"Source Information: \n{source_information}")
 
